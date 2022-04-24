@@ -197,10 +197,10 @@ publishing and latching message for 3.0 seconds
 
 [Planning Visualization](#planning-visualization)
 ========================
-* Change parameter in visualization fuctions
-<img src="https://user-images.githubusercontent.com/69444682/164914791-0e8b18e3-f7d7-4dee-a5dc-96f4da022f4a.png" width="750">
-
 * Path planner in Kino Planner 
 <img src="https://user-images.githubusercontent.com/69444682/164940766-13d2923d-17a9-408a-8a8c-4d0a1b4a8337.png" width="750">
+
+* Change parameter in visualization fuctions
+<img src="https://user-images.githubusercontent.com/69444682/164914791-0e8b18e3-f7d7-4dee-a5dc-96f4da022f4a.png" width="750">
 
 <img src="https://user-images.githubusercontent.com/69444682/164955847-b5ef98a2-e03b-413b-bad9-3c847ff63a15.png" width="750">
