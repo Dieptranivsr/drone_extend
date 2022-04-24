@@ -23,6 +23,15 @@ graph LR
 
 ```mermaid
 graph LR
+  waypointCallback --> drawGoal;
+  checkCollisionCallback --> drawGoal;
+  execFSMCallback --> callKinodynamicReplan;
+  callKinodynamicReplan --> drawGeometricPath;
+  callKinodynamicReplan --> drawBspline;
+```
+
+```mermaid
+graph LR
   test --> find_path;
   find_path --> sim;
   sim --> exp;
