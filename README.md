@@ -112,7 +112,7 @@ pose:
     w: 0.0" 
 publishing and latching message for 3.0 seconds
 ```
-* To command the drone to fly to a target pose by using "geometric_controller", publish a single message to the /command/trajectory topic as follows
+* To command the drone to fly to a target pose when using `geometric_controller` node, publish a single message to the `/command/trajectory` topic as follows
 ```shell
 rostopic pub --once /command/trajectory trajectory_msgs/MultiDOFJointTrajectory "header:  
   seq: 0
