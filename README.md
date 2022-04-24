@@ -93,7 +93,6 @@ $ roslaunch px4 posix_sitl.launch
 ================
 
 * To command the drone to fly to a target pose, publish a single message to the `/move_base_simple/goal` topic as follows
-
 ```shell
 $ rostopic pub --once /move_base_simple/goal geometry_msgs/PoseStamped "header:
   seq: 0
@@ -113,6 +112,7 @@ pose:
     w: 0.0" 
 publishing and latching message for 3.0 seconds
 ```
+* To command the drone to fly to a target pose by using "geometric_controller", publish a single message to the /command/trajectory topic as follows
 ```shell
 rostopic pub --once /command/trajectory trajectory_msgs/MultiDOFJointTrajectory "header:  
   seq: 0
