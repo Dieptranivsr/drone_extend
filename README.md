@@ -113,6 +113,48 @@ pose:
     w: 0.0" 
 publishing and latching message for 3.0 seconds
 ```
+```shell
+rostopic pub --once /command/trajectory trajectory_msgs/MultiDOFJointTrajectory "header:  
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+joint_names:
+- ''
+points:
+- transforms:
+  - translation:
+      x: 0.0
+      y: 0.0
+      z: 2.5
+    rotation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 0.0
+  velocities:
+  - linear:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    angular:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+  accelerations:
+  - linear:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    angular:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+  time_from_start:
+    secs: 0
+    nsecs: 0"
+```
 
 * Flight scenario with ivsr_planner World
 
