@@ -1,4 +1,9 @@
 ```xml
+[ roll: 1.6593902, pitch: -0.0175478, yaw: 1.5639267 ]
+[ x: 0.05071387, y: -0.11901028, z: -0.10727541]
+```
+
+```xml
   <!-- kino_algorithm.xml -->
   <!-- planner manager -->
     <param name="manager/max_vel" value="$(arg max_vel)" type="double"/>
