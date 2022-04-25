@@ -16,6 +16,8 @@
 
 ```xml
   <!-- kino_replan.launch -->
+    <!-- real.world -->
+
     <!-- 1: use 2D Nav Goal to select goal  -->
     <!-- 2: use global waypoints below  -->
     <arg name="flight_type" value="2" />
