@@ -11,6 +11,13 @@
 ```
 ```xml
   <!-- kino_replan.launch -->
+  <!-- global parameters -->
+  <arg name="max_vel" default="1" />
+  <arg name="max_acc" default="2.5" />
+```
+
+```xml
+  <!-- kino_replan.launch -->
     <!-- 1: use 2D Nav Goal to select goal  -->
     <!-- 2: use global waypoints below  -->
     <arg name="flight_type" value="2" />
