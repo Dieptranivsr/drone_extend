@@ -39,3 +39,10 @@
     <arg name="point2_y" value="0.0" />
     <arg name="point2_z" value="3.0" />
 ```
+```xml
+  <!-- geometric_controller.launch -->
+  <node pkg="geometric_controller" type="geometric_controller_node" name="geometric_controller" output="screen">
+          <param name="attctrl_constant" value="0.3" />
+          <param name="normalizedthrust_constant" value="0.06" />
+          <param name="normalizedthrust_offset" value="0.001" />
+```
