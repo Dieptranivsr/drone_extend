@@ -30,6 +30,11 @@ flowchart LR
     id11 --> id3
     id14 --> id6
 ```
+```mermaid
+flowchart LR
+    id1((kino_path_finder->search)) --> id2((plan_data.kino_path = kino_path_finder->getKinoTraj(0.01)))
+    
+```    
     
 ```mermaid
 flowchart LR
