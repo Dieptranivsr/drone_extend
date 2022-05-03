@@ -32,7 +32,7 @@ flowchart LR
 ```
 ```mermaid
 flowchart LR
-    id1(("kino_path_finder->search")) --> id2(("plan_data.kino_path = kino_path_finder->getKinoTraj(0.01)"))
+    id1(["kino_path_finder->search"]) --> id2(["plan_data.kino_path = kino_path_finder->getKinoTraj(0.01)"])
     
 ```    
     
