@@ -39,7 +39,7 @@ flowchart TD
     id5 --> |ctrl_pts| id6(["init(ctrl_pts, 3, ts)"])
     id6 --> id7(["ctrl_pts = bspline_optimizers[0] - >BsplineOptimizeTraj(ctrl_pts, ts, cost_function, 1, 1)"])
     id7 --> |ctrl_pts| id8(["pos = NoneUniformBspline(ctrl_pts, 3, ts)"])
-    id8 --> id9{"feasible = pos.checkFeasibility(false)"}
+    id8 --> id9(["feasible = pos.checkFeasibility(false)"])
     id9 --> id10{"!feasible && ros::ok()"}
     id10 --> |pos| id11(["feasible = pos.reallocateTime()"])
     id11 --> id12(["if (++iter_num >= 3) "])
