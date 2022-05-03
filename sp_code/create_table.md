@@ -33,7 +33,11 @@ flowchart LR
 ```mermaid
 flowchart TD
     id1(["kino_path_finder->search"]) --> id2(["plan_data.kino_path = kino_path_finder->getKinoTraj(0.01)"])
-    
+    id2 --> id3(["kino_path_finder->getSample(ts, point_set, start_end_derivatives)"])
+    id3 --> id4(["parameterizeToBspline(ts, point_set, start_end_derivatives, ctrl_pts)"])
+    id4 --> id5(["init(ctrl_pts, 3, ts)"])
+    id5 --> id6(["ctrl_pts = bspline_optimizers[0] - >BsplineOptimizeTraj(ctrl_pts, ts, cost_function, 1, 1)"])
+    id6 --> id7(["pos = NoneUniformBspline(ctrl_pts, 3, ts)"])
 ```    
     
 ```mermaid
