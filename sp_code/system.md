@@ -4,9 +4,9 @@ flowchart TD
 ```    
 
 ```mermaid
-graph LR
-  drone_extend --> px4_fast_planner;
-  drone_extend --> fast_planner;
+flowchart LR
+  id1([drone_extend]) --> px4_fast_planner;
+  id1 --> fast_planner;
 ```
 
 ```mermaid
