@@ -7,7 +7,7 @@ flowchart TD
     id1 --> id6{REPLAN_TRAJ}
     subgraph init
         id2 --> id7([have_odom])
-        id2 --> id7([trigger])
+        id2 --> id8([trigger])
     end
 ```
     
