@@ -5,6 +5,10 @@ flowchart TD
     id1 --> id4{GEN_NEW_TRAJ}
     id1 --> id5{EXEC_TRAJ}
     id1 --> id6{REPLAN_TRAJ}
+    subgraph init
+        id2 --> id7([have_odom])
+        id2 --> id7([trigger])
+    end
 ```
     
 ```mermaid
