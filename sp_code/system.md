@@ -40,7 +40,7 @@ id16 -->|ctrl_points_bspline| id17(check.rviz)
 ```
 
 ```mermaid
-graph LR
+flowchart LR
   subgraph TOP
     plan_env --> path_searching;
     path_searching --> bspline;
