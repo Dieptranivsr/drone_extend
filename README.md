@@ -34,7 +34,9 @@ graph LR
 graph LR
   simulation --> px4_fast_planner;
   px4_fast_planner --> ivsr_planner.world;
-  find_path --> sim;
+  simulation --> sim;
+  sim --> real.world;
+  real --> 2.5(distance)/2.4(obstacle)/5(goal);
   sim --> exp;
   exp --> check;
 ```
