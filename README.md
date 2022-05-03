@@ -44,7 +44,7 @@ F --> G[outdoor environment]
 A --> H(exp)
 H -->|0.5 m/s - max_vel| I[real.world]
 H -->|0.25 m/s^2 - max_acc| I
-I -->|1 m - control_point_distance| II(param)
+I -->|1 m - control_points_distance| II(param)
 A --> J(org)
 J -->|2.5 m - distance| K[next.world]
 J -->|10 m - obstacle height| K
