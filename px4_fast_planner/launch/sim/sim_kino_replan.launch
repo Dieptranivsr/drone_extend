@@ -30,10 +30,10 @@
     <arg name="cloud_topic" value="/pcl_render_node/cloud"/>
 
      <!-- intrinsic params of the depth camera gazebo model 640x480 -->
-    <arg name="cx" value="320.0"/>
-    <arg name="cy" value="240.0"/>
-    <arg name="fx" value="319.9348449707031"/>
-    <arg name="fy" value="319.9348449707031"/>
+    <arg name="cx" value="320.5"/>
+    <arg name="cy" value="240.5"/>
+    <arg name="fx" value="343.49636753580074"/>
+    <arg name="fy" value="343.49636753580074"/>
 
     <!-- maximum velocity and acceleration the drone will reach -->
     <arg name="max_vel" value="$(arg max_vel)" />

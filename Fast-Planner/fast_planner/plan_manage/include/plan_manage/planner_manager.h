@@ -11,8 +11,10 @@
 #include <plan_env/edt_environment.h>
 
 #include <plan_manage/plan_container.hpp>
+#include <traj_utils/planning_visualization.h>
 
 #include <ros/ros.h>
+#include <geometry_msgs/Point.h>
 
 namespace fast_planner {
 
@@ -52,6 +54,10 @@ private:
   unique_ptr<KinodynamicAstar> kino_path_finder_;
   unique_ptr<TopologyPRM> topo_prm_;
   vector<BsplineOptimizer::Ptr> bspline_optimizers_;
+
+  ros::NodeHandle node_;
+  vector<ros::Publisher> pubs_spline; 
+  ros::Publisher org_path, bspline_points, control_points, bspline_opt, ctrl_point_opt;
 
   void updateTrajInfo();
 
