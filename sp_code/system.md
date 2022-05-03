@@ -6,23 +6,6 @@ graph LR
 ```
 
 ```mermaid
-graph LR
-  plan_env --> path_searching;
-  path_searching --> bspline;
-  bspline --> bspline_opt;
-  traj_server --> geometric_controller;
-```
-
-```mermaid
-graph LR
-  waypointCallback --> drawGoal;
-  checkCollisionCallback --> drawGoal;
-  execFSMCallback --> callKinodynamicReplan;
-  callKinodynamicReplan --> drawGeometricPath;
-  callKinodynamicReplan --> drawBspline;
-```
-
-```mermaid
 flowchart LR 
 
 A((simulation)) --> B(px4_fast_planner)
@@ -51,4 +34,22 @@ M -->|10 m - obstacle height| N
 M -->|10 m - goal| N
 N -->|ctrl_points_bspline| NN(check.rviz)
 ```
+
+```mermaid
+graph LR
+  plan_env --> path_searching;
+  path_searching --> bspline;
+  bspline --> bspline_opt;
+  traj_server --> geometric_controller;
+```
+
+```mermaid
+graph LR
+  waypointCallback --> drawGoal;
+  checkCollisionCallback --> drawGoal;
+  execFSMCallback --> callKinodynamicReplan;
+  callKinodynamicReplan --> drawGeometricPath;
+  callKinodynamicReplan --> drawBspline;
+```
+
   
