@@ -41,9 +41,12 @@ D -->|2.4 m - obstacle| E
 D -->|5 m - goal| E
 A --> F(find_path)
 F --> G[outdoor environment]
-A --> H(org)
-A --> J(sim)
-A --> K(sitl)
+A --> H(exp)
+H -->|0.5 m/s - max_vel| I[real.world]
+H -->|0.25 m/s^2 - max_acc| I
+A --> J(org)
+A --> K(sim)
+A --> L(sitl)
 ```
   
 [Show simulation](#show-simulation)
