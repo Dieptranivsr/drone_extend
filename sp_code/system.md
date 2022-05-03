@@ -23,7 +23,7 @@ id6 --> id7[outdoor environment]
 id1 --> id8(((exp)))
 id8 -->|0.5 m/s - max_vel| id9[real.world]
 id8 -->|0.25 m/s^2 - max_acc| id9
-id8 -->|1 m - control_points_distance| id10(param)
+id9 -->|1 m - control_points_distance| id10(param)
 id1 --> id11(((org)))
 id11 -->|2.5 m - distance| id12[next.world]
 id11 -->|10 m - obstacle height| id12
