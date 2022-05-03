@@ -39,12 +39,8 @@ flowchart TD
     id5 --> |ctrl_pts| id6(["init(ctrl_pts, 3, ts)"])
     id6 --> id7(["ctrl_pts = bspline_optimizers[0] - >BsplineOptimizeTraj(ctrl_pts, ts, cost_function, 1, 1)"])
     id7 --> |ctrl_pts| id8(["pos = NoneUniformBspline(ctrl_pts, 3, ts)"])
-```    
-    
-```mermaid
-flowchart LR
-    id1(Start)-->id2(Stop)
-    style id1 fill:#f9f,stroke:#333,stroke-width:4px
-    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+    id8 --> |ctrl_pts| id9{"!feasible && ros::ok()"}
+    id9 --> |ctrl_pts| id10(["feasible = pos.reallocateTime()"])
+    id10 --> |ctrl_pts| id11(["if (++iter_num >= 3) "])
+    id11 --> |ctrl_pts| id12(["local_data.position_traj = pos"])
 ```
-    
