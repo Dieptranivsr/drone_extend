@@ -7,6 +7,7 @@ Panels:
         - /LocalMap1
         - /Mapping1/simulation_map1/Autocompute Value Bounds1
         - /Check1
+        - /Check1/ctrl_points1
       Splitter Ratio: 0.5
     Tree Height: 396
   - Class: rviz/Selection
@@ -164,7 +165,7 @@ Visualization Manager:
           Marker Topic: /planning_vis/trajectory
           Name: bspline_traj
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -188,7 +189,7 @@ Visualization Manager:
           Marker Topic: /planning/position_cmd_vis
           Name: position_cmd
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
       Enabled: true
@@ -372,18 +373,18 @@ Visualization Manager:
       Displays:
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /check/bspline_points
+          Marker Topic: /bspline/path_points
           Name: bspline_points
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
           Enabled: true
-          Marker Topic: /check/control_points
+          Marker Topic: /bspline/control_points
           Name: ctrl_points
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -391,7 +392,7 @@ Visualization Manager:
           Marker Topic: /check/path_points
           Name: path_points
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -399,7 +400,7 @@ Visualization Manager:
           Marker Topic: /opt/bspline_points
           Name: opt_points
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -407,7 +408,7 @@ Visualization Manager:
           Marker Topic: /opt/control_points
           Name: ctrl_points
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
       Enabled: true

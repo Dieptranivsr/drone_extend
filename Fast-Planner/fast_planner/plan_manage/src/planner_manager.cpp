@@ -29,9 +29,9 @@ void FastPlannerManager::initPlanModules(ros::NodeHandle& nh) {
 
   org_path = node_.advertise<visualization_msgs::Marker>("/check/path_points", 20);
   pubs_spline.push_back(org_path);
-  bspline_points = node_.advertise<visualization_msgs::Marker>("/check/bspline_points", 20);
+  bspline_points = node_.advertise<visualization_msgs::Marker>("/bspline/path_points", 20);
   pubs_spline.push_back(bspline_points);
-  control_points = node_.advertise<visualization_msgs::Marker>("/check/control_points", 20);
+  control_points = node_.advertise<visualization_msgs::Marker>("/bspline/control_points", 20);
   pubs_spline.push_back(control_points);
   bspline_opt = node_.advertise<visualization_msgs::Marker>("/opt/bspline_points", 20);
   pubs_spline.push_back(bspline_opt);
