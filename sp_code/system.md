@@ -111,13 +111,14 @@ flowchart TD
     subgraph bspline_optimize
     id6 --> id7(["ctrl_pts = bspline_optimizers[0] - >BsplineOptimizeTraj(ctrl_pts, ts, cost_function, 1, 1)"])
     id7 --> |ctrl_pts| id8(["pos = NoneUniformBspline(ctrl_pts, 3, ts)"])
+    id8 --> |pos| id9(["pos.setPhysicalLimits(pp_.max_vel_, pp_.max_acc_)"])
     end
     subgraph time_adjustment
-    id8 --> id9(["feasible = pos.checkFeasibility(false)"])
-    id9 --> id10{"!feasible && ros::ok()"}
-    id10 --> |pos| id11(["feasible = pos.reallocateTime()"])
-    id11 --> id12(["if (++iter_num >= 3) "])
-    id12 --> |false| id10
-    id12 --> |pos| id13(["local_data.position_traj = pos"])
+    id9 --> id10(["feasible = pos.checkFeasibility(false)"])
+    id10 --> id11{"!feasible && ros::ok()"}
+    id11 --> |pos| id12(["feasible = pos.reallocateTime()"])
+    id12 --> id13(["if (++iter_num >= 3) "])
+    id13 --> |false| id11
+    id13 --> |pos| id14(["local_data.position_traj = pos"])
     end
 ```
