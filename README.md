@@ -46,7 +46,7 @@ flowchart LR
   simulation --> px4_fast_planner;
   px4_fast_planner --> ivsr_planner.world;
   simulation --> sim;
-  sim --> |2.5(distance)/2.4(obstacle)/5(goal)| D[real.world];
+  sim -->|2.5(distance)/2.4(obstacle)/5(goal)| D[real.world];
   sim --> exp;
   exp --> check;
 ```
