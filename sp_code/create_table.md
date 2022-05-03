@@ -24,8 +24,9 @@ flowchart LR
         id2 --> id8([trigger])
     end
     id8 --> id3
-    id11 --> id3
     id3 --> id4
+    id4 --< id4
+    id11 --> id3
     id13 --> id6
     id14 --> id6
 ```
