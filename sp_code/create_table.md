@@ -1,5 +1,5 @@
 ```mermaid
-flowchart TD
+flowchart TB
     id1((exec_state)) --> id2{INIT}
     id1 --> id3{WAIT_TARGET}
     id1 --> id4{GEN_NEW_TRAJ}
