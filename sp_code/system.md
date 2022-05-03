@@ -40,7 +40,7 @@ id16 -->|ctrl_points_bspline| id17(check.rviz)
 ```
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph one
     plan_env --> path_searching;
     path_searching --> bspline;
@@ -52,7 +52,7 @@ flowchart LR
 ```
 
 ```mermaid
-flowchart LR
+flowchart TB
   subgraph one
     waypointCallback --> drawGoal;
     checkCollisionCallback --> drawGoal;
