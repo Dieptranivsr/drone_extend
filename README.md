@@ -46,7 +46,9 @@ flowchart LR
 A[simulation] --> B[px4_fast_planner];
 B --> C[ivsr_planner.world];
 A --> D[sim];
-D -->|2.5(distance)/2.4(obstacle)/5(goal)| E[real.world];
+D -->|2.5(distance)| E[real.world];
+D -->|2.4(obstacle)| E;
+D -->|5(goal)| E;
 ```
 
 ```mermaid
