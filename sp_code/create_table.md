@@ -23,6 +23,9 @@ flowchart LR
         id2 --> id7([have_odom])
         id2 --> id8([trigger])
     end
+    id8 --> id3
+    id11 --> id3
+    id8 --> id3
 ```
     
 ```mermaid
