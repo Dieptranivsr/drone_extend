@@ -8,7 +8,7 @@ graph LR
 ```mermaid
 flowchart LR 
 
-A((simulation)) --> B(px4_fast_planner)
+A(((simulation))) --> B(px4_fast_planner)
 B --> C[ivsr_planner.world]
 A --> D(sim)
 D -->|2.5 m - distance| E[real.world]
