@@ -32,6 +32,15 @@ graph LR
 
 ```mermaid
 graph LR
+  simulation --> px4_fast_planner;
+  px4_fast_planner --> ivsr_planner.world;
+  find_path --> sim;
+  sim --> exp;
+  exp --> check;
+```
+
+```mermaid
+graph LR
   test --> find_path;
   find_path --> sim;
   sim --> exp;
