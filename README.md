@@ -54,9 +54,10 @@ L -->|2.5 m - distance| LL[real.world]
 L -->|2.4 m - obstacle height| LL
 L -->|5 m - goal| LL
 A --> M(sitl)
-M -->|5 m - distance| MM[check.world]
-M -->|10 m - obstacle height| MM
-M -->|10 m - goal| MM
+M -->|5 m - distance| N[check.world]
+M -->|10 m - obstacle height| N
+M -->|10 m - goal| N
+N -->|ctrl_points_bspline| NN(check.rviz)
 ```
   
 [Show simulation](#show-simulation)
