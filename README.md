@@ -50,7 +50,13 @@ J -->|2.5 m - distance| K[next.world]
 J -->|10 m - obstacle height| K
 J -->|5 m - goal| K
 A --> L(sim)
+L -->|2.5 m - distance| LL[real.world]
+L -->|2.4 m - obstacle height| LL
+L -->|5 m - goal| LL
 A --> M(sitl)
+M -->|5 m - distance| MM[check.world]
+M -->|10 m - obstacle height| MM
+M -->|10 m - goal| MM
 ```
   
 [Show simulation](#show-simulation)
