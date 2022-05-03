@@ -41,10 +41,11 @@ id16 -->|ctrl_points_bspline| id17(check.rviz)
 
 ```mermaid
 graph LR
-  plan_env --> path_searching;
-  path_searching --> bspline;
-  bspline --> bspline_opt;
-  traj_server --> geometric_controller;
+  subgraph TOP
+    plan_env --> path_searching;
+    path_searching --> bspline;
+    bspline --> bspline_opt;
+    traj_server --> geometric_controller;
 ```
 
 ```mermaid
