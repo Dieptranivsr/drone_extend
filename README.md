@@ -49,6 +49,11 @@ A --> D[sim];
 D -->|2.5_distance| E[real.world];
 D -->|2.4_obstacle| E;
 D -->|5_goal| E;
+A --> F[find_path];
+F --> G[outdoor environment]
+A --> H[org]
+A --> J[sim]
+A --> K[sitl]
 ```
 
 ```mermaid
