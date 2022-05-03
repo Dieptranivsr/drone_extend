@@ -41,23 +41,23 @@ id16 -->|ctrl_points_bspline| id17(check.rviz)
 
 ```mermaid
 flowchart TB
-  subgraph one
+  subgraph kino_replan
     plan_env --> path_searching;
     path_searching --> bspline;
     bspline --> bspline_opt;
   end
-  subgraph two
+  subgraph trajectory
     traj_server --> geometric_controller;
   end
 ```
 
 ```mermaid
 flowchart TB
-  subgraph one
+  subgraph callback
     waypointCallback --> drawGoal;
     checkCollisionCallback --> drawGoal;
   end
-  subgraph two
+  subgraph execute FSM
     execFSMCallback --> callKinodynamicReplan;
     callKinodynamicReplan --> drawGeometricPath;
     callKinodynamicReplan --> drawBspline;
