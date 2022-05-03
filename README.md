@@ -43,12 +43,10 @@ graph LR
 ```mermaid
 flowchart LR 
 
-  simulation --> px4_fast_planner;
-  px4_fast_planner --> ivsr_planner.world;
-  simulation --> sim;
-  sim -->|2.5(distance)/2.4(obstacle)/5(goal)| D[real.world];
-  sim --> exp;
-  exp --> check;
+A[simulation] --> B[px4_fast_planner];
+B --> C[ivsr_planner.world];
+A --> D[sim];
+D -->|2.5(distance)/2.4(obstacle)/5(goal)| D[real.world];
 ```
 
 ```mermaid
