@@ -31,16 +31,6 @@ graph LR
 ```
 
 ```mermaid
-graph LR
-  simulation --> px4_fast_planner;
-  px4_fast_planner --> ivsr_planner.world;
-  simulation --> sim;
-  sim --> real.world;
-  real --> 2.5(distance)/2.4(obstacle)/5(goal);
-  sim --> exp;
-  exp --> check;
-```
-```mermaid
 flowchart LR 
 
 A[simulation] --> B[px4_fast_planner];
@@ -54,14 +44,6 @@ F --> G[outdoor environment]
 A --> H[org]
 A --> J[sim]
 A --> K[sitl]
-```
-
-```mermaid
-graph LR
-  test --> find_path;
-  find_path --> sim;
-  sim --> exp;
-  exp --> check;
 ```
   
 [Show simulation](#show-simulation)
