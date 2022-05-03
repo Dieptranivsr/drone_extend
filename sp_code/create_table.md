@@ -20,6 +20,9 @@ flowchart TB
         id5 --> id12([end_pt - pos < no_replan_thresh])
         id5 --> id13([start_pos - pos < replan_thresh])
     end
+    subgraph replan_traj
+        id6 --> id14([success])
+    end
 ```
     
 ```mermaid
