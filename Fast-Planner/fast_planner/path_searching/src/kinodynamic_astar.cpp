@@ -138,7 +138,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     cur_node->node_state = IN_CLOSE_SET;
     iter_num_ += 1;
 
-    double res = 1 / 2.0, time_res = 1 / 4.0, time_res_init = 1 / 20.0;
+    double res = res_, time_res = time_res_, time_res_init = time_res_init_;
     Eigen::Matrix<double, 6, 1> cur_state = cur_node->state;
     Eigen::Matrix<double, 6, 1> pro_state;
     vector<PathNodePtr> tmp_expand_nodes;
@@ -335,6 +335,9 @@ void KinodynamicAstar::setParam(ros::NodeHandle& nh)
   nh.param("search/allocate_num", allocate_num_, -1);
   nh.param("search/check_num", check_num_, -1);
   nh.param("search/optimistic", optimistic_, true);
+  nh.param("search/res", res_, -1.0);
+  nh.param("search/time_res", time_res_, -1.0);
+  nh.param("search/time_res_init", time_res_init_, -1.0);
   tie_breaker_ = 1.0 + 1.0 / 10000;
 
   double vel_margin;

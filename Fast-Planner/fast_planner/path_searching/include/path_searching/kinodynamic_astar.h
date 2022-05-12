@@ -130,6 +130,9 @@ class KinodynamicAstar {
   double tie_breaker_;
   bool optimistic_;
 
+  /*time tau*/
+  double res_, time_res_, time_res_init_;
+
   /* map */
   double resolution_, inv_resolution_, time_resolution_, inv_time_resolution_;
   Eigen::Vector3d origin_, map_size_3d_;
