@@ -112,8 +112,8 @@
     <param name="manager/use_optimization" value="true" type="bool"/>
 
   <!-- kinodynamic path searching -->
-    <param name="search/max_tau" value="0.6" type="double"/>
-    <param name="search/init_max_tau" value="0.8" type="double"/>
+    <param name="search/max_tau" value="2" type="double"/>
+    <param name="search/init_max_tau" value="3" type="double"/>
     <param name="search/max_vel" value="$(arg max_vel)" type="double"/>
     <param name="search/max_acc" value="$(arg max_acc)" type="double"/>
     <param name="search/w_time" value="10.0" type="double"/>
@@ -127,7 +127,7 @@
 
   <!-- trajectory optimization -->
     <param name="optimization/lambda1" value="10.0" type="double"/>
-    <param name="optimization/lambda2" value="0.8" type="double"/>
+    <param name="optimization/lambda2" value="5.0" type="double"/>
     <param name="optimization/lambda3" value="0.00001" type="double"/>
     <param name="optimization/lambda4" value="0.01" type="double"/>
     <param name="optimization/lambda7" value="100.0" type="double"/>

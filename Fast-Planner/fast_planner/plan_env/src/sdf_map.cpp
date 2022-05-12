@@ -1045,16 +1045,6 @@ void SDFMap::publishMapInflate(bool all_info) {
   boundIndex(min_cut);
   boundIndex(max_cut);
 
-  //add
-  /*
-  min_cut(0) = mp_.map_min_idx_(0);
-  min_cut(1) = mp_.map_min_idx_(1);
-  min_cut(2) = mp_.map_min_idx_(2);
-  max_cut(0) = mp_.map_max_idx_(0);
-  max_cut(1) = mp_.map_max_idx_(1);
-  max_cut(2) = mp_.map_max_idx_(2);
-  */
-
   for (int x = min_cut(0); x <= max_cut(0); ++x)
     for (int y = min_cut(1); y <= max_cut(1); ++y)
       for (int z = min_cut(2); z <= max_cut(2); ++z) {

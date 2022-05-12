@@ -9,9 +9,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   visualization_msgs
-  plan_env
   cv_bridge
   nlopt
+  plan_env
 )
 
 catkin_package(
@@ -27,7 +27,6 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
     ${Eigen3_INCLUDE_DIRS} 
     ${PCL_INCLUDE_DIRS}
-    ${nlopt_INCLUDE_DIRS}
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} -O3 -Wall")
@@ -37,5 +36,4 @@ add_library( bspline_opt
     )
 target_link_libraries( bspline_opt
     ${catkin_LIBRARIES} 
-    ${nlopt_LIBRARIES}
     )  

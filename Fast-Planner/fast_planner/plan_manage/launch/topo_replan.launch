@@ -36,17 +36,18 @@
 
     <!-- 1: use 2D Nav Goal to select goal  -->
     <!-- 2: use global waypoints below  -->
-    <arg name="flight_type" value="1" />
+    <!-- 3: use global waypoints below to set reference path --> 
+    <arg name="flight_type" value="2" />
 
     <!-- global waypoints -->
-    <arg name="point_num" value="2" />
+    <arg name="point_num" value="3" />
 
     <arg name="point0_x" value="19.0" />
     <arg name="point0_y" value="0.0" />
     <arg name="point0_z" value="1.0" />
 
     <!-- set more waypoints if you need -->
-    <arg name="point1_x" value="0.0" />
+    <arg name="point1_x" value="19.0" />
     <arg name="point1_y" value="10.0" />
     <arg name="point1_z" value="1.0" />
 
@@ -75,8 +76,8 @@
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>
     <arg name="map_size_z_" value="$(arg map_size_z)"/>
-    <arg name="c_num" value="150"/>
-    <arg name="p_num" value="50"/>
+    <arg name="c_num" value="100"/>
+    <arg name="p_num" value="100"/>
 
     <arg name="odometry_topic" value="$(arg odom_topic)" />
   </include>

@@ -7,7 +7,6 @@ Panels:
         - /LocalMap1
         - /Mapping1/simulation_map1/Autocompute Value Bounds1
         - /Check1
-        - /Check1/ctrl_points1
       Splitter Ratio: 0.5
     Tree Height: 396
   - Class: rviz/Selection
@@ -192,7 +191,7 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-      Enabled: true
+      Enabled: false
       Name: Planning
     - Class: rviz/Group
       Displays:
@@ -372,27 +371,27 @@ Visualization Manager:
     - Class: rviz/Group
       Displays:
         - Class: rviz/Marker
-          Enabled: true
+          Enabled: false
           Marker Topic: /bspline/path_points
           Name: bspline_points
           Namespaces:
             {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/Marker
-          Enabled: true
+          Enabled: false
           Marker Topic: /bspline/control_points
           Name: ctrl_points
           Namespaces:
             {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/Marker
           Enabled: true
           Marker Topic: /check/path_points
           Name: path_points
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -404,13 +403,13 @@ Visualization Manager:
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
-          Enabled: true
+          Enabled: false
           Marker Topic: /opt/control_points
           Name: ctrl_points
           Namespaces:
             {}
           Queue Size: 100
-          Value: true
+          Value: false
       Enabled: true
       Name: Check
   Enabled: true
@@ -440,25 +439,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/ThirdPersonFollower
-      Distance: 23.23635482788086
+      Distance: 25.64996337890625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -2.046539783477783
-        Y: 4.385968208312988
+        X: 1.6014988422393799
+        Y: 0.014807701110839844
         Z: 2.234822568425443e-5
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6247970461845398
+      Pitch: 1.5547947883605957
       Target Frame: <Fixed Frame>
       Value: ThirdPersonFollower (rviz)
-      Yaw: 1.7486532926559448
+      Yaw: 2.708667516708374
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 17.48538589477539
