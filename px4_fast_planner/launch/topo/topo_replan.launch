@@ -12,7 +12,7 @@
   <arg name="max_acc" default="0.25" />
 
   <!-- main algorithm params -->
-  <include file="$(find px4_fast_planner)/launch/sitl/sitl_kino_algorithm.xml">
+  <include file="$(find px4_fast_planner)/launch/topo/topo_algorithm.xml">
 
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>

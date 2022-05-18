@@ -158,7 +158,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     {
       for (double ax = -max_acc_; ax <= max_acc_ + 1e-3; ax += max_acc_ * res)
         for (double ay = -max_acc_; ay <= max_acc_ + 1e-3; ay += max_acc_ * res)
-          for (double az = -max_acc_; az <= max_acc_ + 1e-3; az += max_acc_ * res)
+          for (double az = -max_acc_ / 4; az <= max_acc_ / 4 + 1e-3; az += max_acc_ * res / 4)
           {
             um << ax, ay, az;
             inputs.push_back(um);
