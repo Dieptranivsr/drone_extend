@@ -13,7 +13,7 @@
   <arg name="max_acc" default="0.25" />
 
   <!-- main algorithm params -->
-  <include file="$(find px4_fast_planner)/launch/sitl/sitl_kino_algorithm.xml">
+  <include file="$(find px4_fast_planner)/launch/kino_fulloption/full_kino_algorithm.xml">
 
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>
@@ -30,11 +30,7 @@
     <!-- don't set camera pose and depth, if you already set this one! -->
     <arg name="cloud_topic" value="/pcl_render_node/cloud"/>
 
-     <!-- intrinsic params of the depth camera gazebo model 640x480 -->
-    <!--<arg name="cx" value="320.5"/>
-    <arg name="cy" value="240.5"/>
-    <arg name="fx" value="343.49636753580074"/>
-    <arg name="fy" value="343.49636753580074"/>-->
+    <!-- intrinsic params of the depth camera gazebo model 640x480 -->
     <arg name="cx" value="313.88287353515625"/>
     <arg name="cy" value="238.2814483642578"/>
     <arg name="fx" value="383.8480224609375"/>
