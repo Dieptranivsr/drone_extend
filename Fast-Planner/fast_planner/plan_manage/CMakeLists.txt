@@ -62,8 +62,19 @@ target_link_libraries(fast_planner_node
   ${catkin_LIBRARIES}
   )
 
+add_executable(flight_node
+  src/flight_node.cpp 
+  src/flight_kino_fsm.cpp
+  src/flight_manager.cpp
+  )
+target_link_libraries(flight_node 
+  ${catkin_LIBRARIES}
+  )
+
 add_executable(traj_server src/traj_server.cpp)
 target_link_libraries(traj_server ${catkin_LIBRARIES})
 add_dependencies(traj_server ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
-
+add_executable(flight_traj src/flight_traj.cpp)
+target_link_libraries(flight_traj ${catkin_LIBRARIES})
+add_dependencies(flight_traj ${${PROJECT_NAME}_EXPORTED_TARGETS})

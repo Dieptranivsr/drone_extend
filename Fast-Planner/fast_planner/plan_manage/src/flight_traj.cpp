@@ -1,27 +1,6 @@
-/**
-* This file is part of Fast-Planner.
-*
-* Copyright 2019 Boyu Zhou, Aerial Robotics Group, Hong Kong University of Science and Technology, <uav.ust.hk>
-* Developed by Boyu Zhou <bzhouai at connect dot ust dot hk>, <uv dot boyuzhou at gmail dot com>
-* for more information see <https://github.com/HKUST-Aerial-Robotics/Fast-Planner>.
-* If you use this code, please cite the respective publications as
-* listed on the above website.
-*
-* Fast-Planner is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Fast-Planner is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with Fast-Planner. If not, see <http://www.gnu.org/licenses/>.
+/*
+    --- fast-planner-lite ---
 */
-
-
 
 #include "bspline/non_uniform_bspline.h"
 #include "nav_msgs/Odometry.h"
@@ -146,14 +125,10 @@ void bsplineCallback(plan_manage::BsplineConstPtr msg) {
 
   // parse yaw traj
 
-  std::cout << "1111. WayPTS : " ;
   Eigen::MatrixXd yaw_pts(msg->yaw_pts.size(), 1);
   for (int i = 0; i < msg->yaw_pts.size(); ++i) {
     yaw_pts(i, 0) = msg->yaw_pts[i];
-
-    std::cout << yaw_pts(i, 0) << ", " ;
   }
-  std::cout << std::endl;
 
   NonUniformBspline yaw_traj(yaw_pts, msg->order, msg->yaw_dt);
 
@@ -254,8 +229,6 @@ void cmdCallback(const ros::TimerEvent& e) {
   cmd.acceleration.x = acc(0);
   cmd.acceleration.y = acc(1);
   cmd.acceleration.z = acc(2);
-
-  std::cout << yaw << std::endl;
 
   cmd.yaw = yaw;
   cmd.yaw_dot = yawdot;

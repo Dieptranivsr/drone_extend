@@ -1,30 +1,8 @@
-/**
-* This file is part of Fast-Planner.
-*
-* Copyright 2019 Boyu Zhou, Aerial Robotics Group, Hong Kong University of Science and Technology, <uav.ust.hk>
-* Developed by Boyu Zhou <bzhouai at connect dot ust dot hk>, <uv dot boyuzhou at gmail dot com>
-* for more information see <https://github.com/HKUST-Aerial-Robotics/Fast-Planner>.
-* If you use this code, please cite the respective publications as
-* listed on the above website.
-*
-* Fast-Planner is free software: you can redistribute it and/or modify
-* it under the terms of the GNU Lesser General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Fast-Planner is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with Fast-Planner. If not, see <http://www.gnu.org/licenses/>.
+/*
+    --- fast-planner-lite ---
 */
 
-
-
-
-#include <plan_manage/kino_replan_fsm.h>
+#include <plan_manage/flight_kino_fsm.h>
 
 namespace fast_planner {
 
@@ -35,15 +13,15 @@ void KinoReplanFSM::init(ros::NodeHandle& nh) {
   have_odom_   = false;
 
   /*  fsm param  */
-  nh.param("fsm/flight_type", target_type_, -1);
-  nh.param("fsm/thresh_replan", replan_thresh_, -1.0);
-  nh.param("fsm/thresh_no_replan", no_replan_thresh_, -1.0);
+  nh.param("flight/flight_type", target_type_, -1);
+  nh.param("flight/thresh_replan", replan_thresh_, -1.0);
+  nh.param("flight/thresh_no_replan", no_replan_thresh_, -1.0);
 
-  nh.param("fsm/waypoint_num", waypoint_num_, -1);
+  nh.param("flight/waypoint_num", waypoint_num_, -1);
   for (int i = 0; i < waypoint_num_; i++) {
-    nh.param("fsm/waypoint" + to_string(i) + "_x", waypoints_[i][0], -1.0);
-    nh.param("fsm/waypoint" + to_string(i) + "_y", waypoints_[i][1], -1.0);
-    nh.param("fsm/waypoint" + to_string(i) + "_z", waypoints_[i][2], -1.0);
+    nh.param("flight/waypoint" + to_string(i) + "_x", waypoints_[i][0], -1.0);
+    nh.param("flight/waypoint" + to_string(i) + "_y", waypoints_[i][1], -1.0);
+    nh.param("flight/waypoint" + to_string(i) + "_z", waypoints_[i][2], -1.0);
   }
 
   /* initialize main modules */
@@ -336,24 +314,22 @@ bool KinoReplanFSM::callKinodynamicReplan() {
       bspline.knots.push_back(knots(i));
     }
 
-    std::cout << "4444. WayPTS : " ;
     Eigen::MatrixXd yaw_pts = info->yaw_traj_.getControlPoint();
     for (int i = 0; i < yaw_pts.rows(); ++i) {
       double yaw = yaw_pts(i, 0);
       bspline.yaw_pts.push_back(yaw);
-
-      std::cout << yaw << ", " ;
     }
-    std::cout << std::endl;
     bspline.yaw_dt = info->yaw_traj_.getInterval();
 
     bspline_pub_.publish(bspline);
 
     /* visulization */
+    
+    /*
     auto plan_data = &planner_manager_->plan_data_;
     visualization_->drawGeometricPath(plan_data->kino_path_, 0.075, Eigen::Vector4d(1, 1, 0, 0.4));
-    visualization_->drawBspline(info->position_traj_, 0.1, Eigen::Vector4d(1.0, 0, 0.0, 1), true, 0.2,
-                                Eigen::Vector4d(1, 0, 0, 1));
+    visualization_->drawBspline(info->position_traj_, 0.1, Eigen::Vector4d(1.0, 0, 0.0, 1), true, 0.2, Eigen::Vector4d(1, 0, 0, 1));
+    */
 
     return true;
 

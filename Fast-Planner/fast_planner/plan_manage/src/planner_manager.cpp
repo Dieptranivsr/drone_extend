@@ -828,6 +828,8 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
 
   // seg_num -> seg_num - 1 points for constraint excluding the boundary states
 
+  std::cout << "1. WayPTS : " ;
+
   for (int i = 0; i < seg_num; ++i) {
     double          tc = i * dt_yaw;
     Eigen::Vector3d pc = pos.evaluateDeBoorT(tc);
@@ -845,7 +847,11 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
     }
     waypts.push_back(waypt);
     waypt_idx.push_back(i);
+
+    std::cout << waypt(0) << ", " ;
   }
+
+  std::cout << std::endl;
 
   // calculate initial control points with boundary state constraints
 
@@ -873,7 +879,12 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
   local_data_.yawdotdot_traj_ = local_data_.yawdot_traj_.getDerivative();
 
   vector<double> path_yaw;
-  for (int i = 0; i < waypts.size(); ++i) path_yaw.push_back(waypts[i][0]);
+  std::cout << "2. WayPTS : " ;
+  for (int i = 0; i < waypts.size(); ++i) {
+    path_yaw.push_back(waypts[i][0]);
+    std::cout << waypts[i][0] << ", " ;
+  }
+  std::cout << std::endl;
   plan_data_.path_yaw_    = path_yaw;
   plan_data_.dt_yaw_      = dt_yaw;
   plan_data_.dt_yaw_path_ = dt_yaw;

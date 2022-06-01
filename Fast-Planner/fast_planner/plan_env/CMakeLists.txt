@@ -3,7 +3,6 @@ project(plan_env)
 
 find_package(OpenCV REQUIRED)
 
-
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy

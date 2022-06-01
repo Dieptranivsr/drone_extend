@@ -148,15 +148,16 @@ void SDFMap::initMap(ros::NodeHandle& nh) {
 
   // use odometry and point cloud
 
-  indep_cloud_sub_ =
-      node_.subscribe<sensor_msgs::PointCloud2>("/sdf_map/cloud", 10, &SDFMap::cloudCallback, this);
-  indep_odom_sub_ =
-      node_.subscribe<nav_msgs::Odometry>("/sdf_map/odom", 10, &SDFMap::odomCallback, this);
+  /*
+  indep_cloud_sub_ = node_.subscribe<sensor_msgs::PointCloud2>("/sdf_map/cloud", 10, &SDFMap::cloudCallback, this);
+  indep_odom_sub_ = node_.subscribe<nav_msgs::Odometry>("/sdf_map/odom", 10, &SDFMap::odomCallback, this);
+  */
 
   occ_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::updateOccupancyCallback, this);
   esdf_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::updateESDFCallback, this);
-  vis_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::visCallback, this);
+  //vis_timer_ = node_.createTimer(ros::Duration(0.05), &SDFMap::visCallback, this);
 
+  /*
   map_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/occupancy", 10);
   map_inf_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/occupancy_inflate", 10);
   esdf_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/esdf", 10);
@@ -164,6 +165,7 @@ void SDFMap::initMap(ros::NodeHandle& nh) {
 
   unknown_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/unknown", 10);
   depth_pub_ = node_.advertise<sensor_msgs::PointCloud2>("/sdf_map/depth_cloud", 10);
+  */
 
   md_.occ_need_update_ = false;
   md_.local_updated_ = false;
@@ -764,15 +766,16 @@ void SDFMap::clearAndInflateLocalMap() {
   */
 }
 
-void SDFMap::visCallback(const ros::TimerEvent& /*event*/) {
-  publishMap();
-  publishMapInflate(false);
-  // publishUpdateRange();
-  // publishESDF();
+//void SDFMap::visCallback(const ros::TimerEvent& /*event*/) {
+//  publishMap();
+//  publishMapInflate(false);
+//  publishUpdateRange();
+//  publishESDF();
+//
+//  publishUnknown();
+//  publishDepth();
+//}
 
-  // publishUnknown();
-  // publishDepth();
-}
 
 void SDFMap::updateOccupancyCallback(const ros::TimerEvent& /*event*/) {
   if (!md_.occ_need_update_) return;
@@ -849,6 +852,7 @@ void SDFMap::depthPoseCallback(const sensor_msgs::ImageConstPtr& img,
   }
 }
 
+/*
 void SDFMap::odomCallback(const nav_msgs::OdometryConstPtr& odom) {
   if (md_.has_first_depth_) return;
 
@@ -898,14 +902,14 @@ void SDFMap::cloudCallback(const sensor_msgs::PointCloud2ConstPtr& img) {
     pt = latest_cloud.points[i];
     p3d(0) = pt.x, p3d(1) = pt.y, p3d(2) = pt.z;
 
-    /* point inside update range */
+    // point inside update range 
     Eigen::Vector3d devi = p3d - md_.camera_pos_;
     Eigen::Vector3i inf_pt;
 
     if (fabs(devi(0)) < mp_.local_update_range_(0) && fabs(devi(1)) < mp_.local_update_range_(1) &&
         fabs(devi(2)) < mp_.local_update_range_(2)) {
 
-      /* inflate the point */
+      // inflate the point 
       for (int x = -inf_step; x <= inf_step; ++x)
         for (int y = -inf_step; y <= inf_step; ++y)
           for (int z = -inf_step_z; z <= inf_step_z; ++z) {
@@ -1212,6 +1216,7 @@ void SDFMap::publishESDF() {
 
   // ROS_INFO("pub esdf");
 }
+*/
 
 void SDFMap::getSliceESDF(const double height, const double res, const Eigen::Vector4d& range,
                           vector<Eigen::Vector3d>& slice, vector<Eigen::Vector3d>& grad, int sign) {
