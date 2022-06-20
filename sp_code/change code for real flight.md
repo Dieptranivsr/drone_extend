@@ -92,3 +92,20 @@ void BsplineOptimizer::calcDistanceCost(const vector<Eigen::Vector3d>& q, double
   }
 }
 ```
+```kino_replan_fsm.cpp
+void KinoReplanFSM::waypointCallback(const nav_msgs::PathConstPtr& msg) {
+  if (msg->poses[0].pose.position.z < -0.1) return;
+
+  cout << "Triggered!" << endl;
+  trigger_ = true;
+
+  if (target_type_ == TARGET_TYPE::MANUAL_TARGET) {
+    end_pt_ << msg->poses[0].pose.position.x, msg->poses[0].pose.position.y, msg->poses[0].pose.position.z;
+
+  } else if (target_type_ == TARGET_TYPE::PRESET_TARGET) {
+    end_pt_(0)  = waypoints_[current_wp_][0];
+    end_pt_(1)  = waypoints_[current_wp_][1];
+    end_pt_(2)  = waypoints_[current_wp_][2];
+    current_wp_ = (current_wp_ + 1) % waypoint_num_;
+  }
+```
