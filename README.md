@@ -32,7 +32,7 @@ pose:
 ## Simulate on Flightmare 
 
 <img src="https://user-images.githubusercontent.com/69444682/185907550-88583c10-ae46-41d1-bfcf-389d35678ad6.png" width="425"> 
-<img src="https://user-images.githubusercontent.com/69444682/185909241-98553f82-a6cf-4d0c-baa2-c24c271b3147.gif" width="425"> 
+<img src="https://user-images.githubusercontent.com/69444682/185909241-98553f82-a6cf-4d0c-baa2-c24c271b3147.gif" width="425"> <img src="https://user-images.githubusercontent.com/69444682/185909614-d31190f0-477d-4995-b624-1b432260ce79.gif" width="425"> 
 
 ```
   $ roslaunch mavros px4.launch fcu_url:="/dev/ttyTHS1:921600"
