@@ -49,7 +49,7 @@ void KinoReplanFSM::waypointCallback(const nav_msgs::PathConstPtr& msg) {
   trigger_ = true;
 
   if (target_type_ == TARGET_TYPE::MANUAL_TARGET) {
-    end_pt_ << msg->poses[0].pose.position.x, msg->poses[0].pose.position.y, msg->poses[0].pose.position.z;
+    end_pt_ << msg->poses[0].pose.position.x, msg->poses[0].pose.position.y, 1.0;
 
   } else if (target_type_ == TARGET_TYPE::PRESET_TARGET) {
     end_pt_(0)  = waypoints_[current_wp_][0];
@@ -324,9 +324,9 @@ bool KinoReplanFSM::callKinodynamicReplan() {
     bspline_pub_.publish(bspline);
 
     /* visualization */
-    auto plan_data = &planner_manager_->plan_data_;
-    visualization_->drawGeometricPath(plan_data->kino_path_, 0.075, Eigen::Vector4d(1, 1, 0, 0.4));
-    visualization_->drawBspline(info->position_traj_, 0.1, Eigen::Vector4d(1.0, 0, 0.0, 1), true, 0.2, Eigen::Vector4d(1, 0, 0, 1));
+    // auto plan_data = &planner_manager_->plan_data_;
+    // visualization_->drawGeometricPath(plan_data->kino_path_, 0.075, Eigen::Vector4d(1, 1, 0, 0.4));
+    // visualization_->drawBspline(info->position_traj_, 0.1, Eigen::Vector4d(1.0, 0, 0.0, 1), true, 0.2, Eigen::Vector4d(1, 0, 0, 1));
 
     return true;
 

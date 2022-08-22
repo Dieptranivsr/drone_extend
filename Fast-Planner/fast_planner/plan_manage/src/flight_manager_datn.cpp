@@ -25,17 +25,6 @@ void FastPlannerManager::initPlanModules(ros::NodeHandle& nh) {
   nh.param("manager/local_segment_length", pp_.local_traj_len_, -1.0);
   nh.param("manager/control_points_distance", pp_.ctrl_pt_dist, -1.0);
 
-  org_path = node_.advertise<visualization_msgs::Marker>("/check/path_points", 20);
-  pubs_spline.push_back(org_path);
-  bspline_points = node_.advertise<visualization_msgs::Marker>("/bspline/path_points", 20);
-  pubs_spline.push_back(bspline_points);
-  control_points = node_.advertise<visualization_msgs::Marker>("/bspline/control_points", 20);
-  pubs_spline.push_back(control_points);
-  bspline_opt = node_.advertise<visualization_msgs::Marker>("/opt/bspline_points", 20);
-  pubs_spline.push_back(bspline_opt);
-  ctrl_point_opt = node_.advertise<visualization_msgs::Marker>("/opt/control_points", 20);
-  pubs_spline.push_back(ctrl_point_opt);
-
   local_data_.traj_id_ = 0;
   sdf_map_.reset(new SDFMap);
   sdf_map_->initMap(nh);
@@ -138,40 +127,6 @@ bool FastPlannerManager::kinodynamicReplan(Eigen::Vector3d start_pt, Eigen::Vect
 
   plan_data_.kino_path_ = kino_path_finder_->getKinoTraj(0.01);
 
-  // point_path
-  visualization_msgs::Marker mk0;
-  mk0.header.frame_id  = "world";
-  mk0.header.stamp     = ros::Time::now();
-  mk0.type             = visualization_msgs::Marker::SPHERE_LIST;
-  mk0.action           = visualization_msgs::Marker::DELETE;
-  mk0.id               = 200;
-  pubs_spline[0].publish(mk0);
-
-  mk0.action             = visualization_msgs::Marker::ADD;
-  mk0.pose.orientation.x = 0.0;
-  mk0.pose.orientation.y = 0.0;
-  mk0.pose.orientation.z = 0.0;
-  mk0.pose.orientation.w = 1.0;
-
-  mk0.color.r = 0.5;
-  mk0.color.g = 0.0;
-  mk0.color.b = 1.0;
-  mk0.color.a = 0.5;
-  
-  mk0.scale.x = 0.1;
-  mk0.scale.y = 0.1;
-  mk0.scale.z = 0.1;
-  
-  geometry_msgs::Point pt0;
-  for (int i = 0; i < int(plan_data_.kino_path_.size()); i++) {
-    pt0.x = plan_data_.kino_path_[i](0);
-    pt0.y = plan_data_.kino_path_[i](1);
-    pt0.z = plan_data_.kino_path_[i](2);
-    mk0.points.push_back(pt0);
-  }
-  pubs_spline[0].publish(mk0);
-  ros::Duration(0.001).sleep();
-
   t_search = (ros::Time::now() - t1).toSec();
 
   // parameterize the path to bspline
@@ -182,91 +137,10 @@ bool FastPlannerManager::kinodynamicReplan(Eigen::Vector3d start_pt, Eigen::Vect
 
   Eigen::MatrixXd ctrl_pts;
   NonUniformBspline::parameterizeToBspline(ts, point_set, start_end_derivatives, ctrl_pts);
-  //NonUniformBspline init(ctrl_pts, 3, ts);
-  NonUniformBspline positions = NonUniformBspline(ctrl_pts, 3, ts);
+  NonUniformBspline init(ctrl_pts, 3, ts);
  
   // bspline trajectory optimization
 
-  // add bspline curves
-  vector<Eigen::Vector3d> point_bspline, cpt_bspline;
-  double                  tm1, tmp1;
-  positions.getTimeSpan(tm1, tmp1);
-  for (double t = tm1; t < tmp1; t += 0.01 ) {
-    Eigen::Vector3d pt1 = positions.evaluateDeBoor(t);
-    point_bspline.push_back(pt1);
-  }
-
-  visualization_msgs::Marker mk1;
-  mk1.header.frame_id  = "world";
-  mk1.header.stamp     = ros::Time::now();
-  mk1.type             = visualization_msgs::Marker::SPHERE_LIST;
-  mk1.action           = visualization_msgs::Marker::DELETE;
-  mk1.id               = 300;
-  pubs_spline[1].publish(mk1);
-
-  mk1.action             = visualization_msgs::Marker::ADD;
-  mk1.pose.orientation.x = 0.0;
-  mk1.pose.orientation.y = 0.0;
-  mk1.pose.orientation.z = 0.0;
-  mk1.pose.orientation.w = 1.0;
-
-  mk1.color.r = 0.15;
-  mk1.color.g = 1.0;
-  mk1.color.b = 0.8;
-  mk1.color.a = 0.8;
-  
-  mk1.scale.x = 0.1;
-  mk1.scale.y = 0.1;
-  mk1.scale.z = 0.1;
-  
-  geometry_msgs::Point pt1_;
-  for (int i = 0; i < int(point_bspline.size()); i++) {
-    pt1_.x = point_bspline[i](0);
-    pt1_.y = point_bspline[i](1);
-    pt1_.z = point_bspline[i](2);
-    mk1.points.push_back(pt1_);
-  }
-  pubs_spline[1].publish(mk1);
-  ros::Duration(0.001).sleep();
-
-  for (int i = 0; i < ctrl_pts.rows(); ++i) {
-    Eigen::Vector3d pt2 = ctrl_pts.row(i).transpose();
-    cpt_bspline.push_back(pt2);
-  }
-
-  visualization_msgs::Marker mk2;
-  mk2.header.frame_id  = "world";
-  mk2.header.stamp     = ros::Time::now();
-  mk2.type             = visualization_msgs::Marker::SPHERE_LIST;
-  mk2.action           = visualization_msgs::Marker::DELETE;
-  mk2.id               = 400;
-  pubs_spline[2].publish(mk2);
-
-  mk2.action             = visualization_msgs::Marker::ADD;
-  mk2.pose.orientation.x = 0.0;
-  mk2.pose.orientation.y = 0.0;
-  mk2.pose.orientation.z = 0.0;
-  mk2.pose.orientation.w = 1.0;
-
-  mk2.color.r = 1.0;
-  mk2.color.g = 0.5;
-  mk2.color.b = 1.0;
-  mk2.color.a = 1.0;
-  
-  mk2.scale.x = 0.2;
-  mk2.scale.y = 0.2;
-  mk2.scale.z = 0.2;
-  
-  geometry_msgs::Point pt2;
-  for (int i = 0; i < int(cpt_bspline.size()); i++) {
-    pt2.x = cpt_bspline[i](0);
-    pt2.y = cpt_bspline[i](1);
-    pt2.z = cpt_bspline[i](2);
-    mk2.points.push_back(pt2);
-  }
-  pubs_spline[2].publish(mk2);
-  ros::Duration(0.001).sleep();
-  
   t1 = ros::Time::now();
 
   int cost_function = BsplineOptimizer::NORMAL_PHASE;
@@ -283,86 +157,6 @@ bool FastPlannerManager::kinodynamicReplan(Eigen::Vector3d start_pt, Eigen::Vect
 
   t1                    = ros::Time::now();
   NonUniformBspline pos = NonUniformBspline(ctrl_pts, 3, ts);
-
-  // add bspline curves
-  vector<Eigen::Vector3d> point_set_opt, cpt_opt;
-  double                  tm2, tmp2;
-  pos.getTimeSpan(tm2, tmp2);
-  for (double t = tm2; t < tmp2; t += 0.01 ) {
-    Eigen::Vector3d pt3 = pos.evaluateDeBoor(t);
-    point_set_opt.push_back(pt3);
-  }
-
-  visualization_msgs::Marker mk3;
-  mk3.header.frame_id  = "world";
-  mk3.header.stamp     = ros::Time::now();
-  mk3.type             = visualization_msgs::Marker::SPHERE_LIST;
-  mk3.action           = visualization_msgs::Marker::DELETE;
-  mk3.id               = 300;
-  pubs_spline[3].publish(mk3);
-
-  mk3.action             = visualization_msgs::Marker::ADD;
-  mk3.pose.orientation.x = 0.0;
-  mk3.pose.orientation.y = 0.0;
-  mk3.pose.orientation.z = 0.0;
-  mk3.pose.orientation.w = 1.0;
-
-  mk3.color.r = 1;
-  mk3.color.g = 0.15;
-  mk3.color.b = 0.9;
-  mk3.color.a = 0.8;
-  
-  mk3.scale.x = 0.1;
-  mk3.scale.y = 0.1;
-  mk3.scale.z = 0.1;
-  
-  geometry_msgs::Point pt3;
-  for (int i = 0; i < int(point_set_opt.size()); i++) {
-    pt3.x = point_set_opt[i](0);
-    pt3.y = point_set_opt[i](1);
-    pt3.z = point_set_opt[i](2);
-    mk3.points.push_back(pt3);
-  }
-  pubs_spline[3].publish(mk3);
-  ros::Duration(0.001).sleep();
-
-  for (int i = 0; i < ctrl_pts.rows(); ++i) {
-    Eigen::Vector3d pt3 = ctrl_pts.row(i).transpose();
-    cpt_opt.push_back(pt3);
-  }
-
-  visualization_msgs::Marker mk4;
-  mk4.header.frame_id  = "world";
-  mk4.header.stamp     = ros::Time::now();
-  mk4.type             = visualization_msgs::Marker::SPHERE_LIST;
-  mk4.action           = visualization_msgs::Marker::DELETE;
-  mk4.id               = 400;
-  pubs_spline[4].publish(mk4);
-
-  mk4.action             = visualization_msgs::Marker::ADD;
-  mk4.pose.orientation.x = 0.0;
-  mk4.pose.orientation.y = 0.0;
-  mk4.pose.orientation.z = 0.0;
-  mk4.pose.orientation.w = 1.0;
-
-  mk4.color.r = 1.0;
-  mk4.color.g = 0.6;
-  mk4.color.b = 0.15;
-  mk4.color.a = 0.8;
-  
-  mk4.scale.x = 0.2;
-  mk4.scale.y = 0.2;
-  mk4.scale.z = 0.2;
-  
-  geometry_msgs::Point pt4;
-  for (int i = 0; i < int(cpt_opt.size()); i++) {
-    pt4.x = cpt_opt[i](0);
-    pt4.y = cpt_opt[i](1);
-    pt4.z = cpt_opt[i](2);
-    mk4.points.push_back(pt4);
-  }
-  pubs_spline[4].publish(mk4);
-  ros::Duration(0.001).sleep();
 
   double to = pos.getTimeSum();
   pos.setPhysicalLimits(pp_.max_vel_, pp_.max_acc_);

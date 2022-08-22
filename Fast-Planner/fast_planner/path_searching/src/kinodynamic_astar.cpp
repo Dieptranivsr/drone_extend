@@ -85,6 +85,7 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
 
     // Terminate?
     bool reach_horizon = (cur_node->state.head(3) - start_pt).norm() >= horizon_;
+    bool start_range = (cur_node->state.head(3) - start_pt).norm() <= 0.5;
     bool near_end = abs(cur_node->index(0) - end_index(0)) <= tolerance &&
                     abs(cur_node->index(1) - end_index(1)) <= tolerance &&
                     abs(cur_node->index(2) - end_index(2)) <= tolerance;
@@ -104,6 +105,9 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     }
     if (reach_horizon)
     {
+      //std::cout << "- - - - - -" << std::endl;
+      //std::cout << "\nUSE_NODE_NUM_: " << use_node_num_ << std::endl;
+      //std::cout << "- - - - - -" << std::endl;
       if (is_shot_succ_)
       {
         std::cout << "reach end" << std::endl;
@@ -120,6 +124,9 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     {
       if (is_shot_succ_)
       {
+        //std::cout << "- - - - - -" << std::endl;
+        //std::cout << "\nUSE_NODE_NUM_: " << use_node_num_ << std::endl;
+        //std::cout << "- - - - - -" << std::endl;
         std::cout << "reach end" << std::endl;
         return REACH_END;
       }
@@ -148,11 +155,25 @@ int KinodynamicAstar::search(Eigen::Vector3d start_pt, Eigen::Vector3d start_v, 
     vector<double> durations;
     if (init_search)
     {
+      //std::cout << "init_search . . ." << std::endl;
       inputs.push_back(start_acc_);
       for (double tau = time_res_init * init_max_tau_; tau <= init_max_tau_ + 1e-3;
            tau += time_res_init * init_max_tau_)
         durations.push_back(tau);
       init_search = false;
+    }
+    else if(start_range)
+    {
+      //std::cout << "start_range . . ." << std::endl;
+      for (double ax = 0; ax <= 2 * max_acc_ + 1e-3; ax += max_acc_ * res)
+        for (double ay = 0; ay <= 2 * max_acc_ + 1e-3; ay += max_acc_ * res)
+          for (double az = 0; az <= max_acc_ + 1e-3; az += max_acc_ * res / 2)
+          {
+            um << ax, ay, az;
+            inputs.push_back(um);
+          }
+      for (double tau = time_res * max_tau_; tau <= max_tau_; tau += time_res * max_tau_)
+        durations.push_back(tau);
     }
     else
     {
@@ -358,6 +379,7 @@ void KinodynamicAstar::retrievePath(PathNodePtr end_node)
 
   reverse(path_nodes_.begin(), path_nodes_.end());
 }
+
 double KinodynamicAstar::estimateHeuristic(Eigen::VectorXd x1, Eigen::VectorXd x2, double& optimal_time)
 {
   const Vector3d dp = x2.head(3) - x1.head(3);

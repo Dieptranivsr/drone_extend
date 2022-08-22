@@ -1,8 +1,8 @@
 <launch>
   <!-- global parameters -->
-  <arg name="map_size_x" default="50.0"/>
-  <arg name="map_size_y" default="50.0"/>
-  <arg name="map_size_z" default="10.0"/>
+  <arg name="map_size_x" default="60.0"/>
+  <arg name="map_size_y" default="60.0"/>
+  <arg name="map_size_z" default="8.0"/>
 
   <arg name="odom_topic" default="/mavros/local_position/odom" />
   <arg name="camera_pose_topic" default="/camera/pose"/>
@@ -12,7 +12,7 @@
   <arg name="max_acc" default="0.25" />
 
   <!-- main algorithm params -->
-  <include file="$(find px4_fast_planner)/launch/flight/flight_kino_algorithm.xml">
+  <include file="$(find px4_fast_planner)/launch/gzda/gzda_kino_algorithm.xml">
 
     <arg name="map_size_x_" value="$(arg map_size_x)"/>
     <arg name="map_size_y_" value="$(arg map_size_y)"/>
@@ -29,7 +29,7 @@
     <!-- don't set camera pose and depth, if you already set this one! -->
     <arg name="cloud_topic" value="/pcl_render_node/cloud"/>
 
-     <!-- intrinsic params of the depth camera gazebo model 640x480 -->
+    <!-- intrinsic params of the depth camera gazebo model 640x480 -->
     <arg name="cx" value="320.5"/>
     <arg name="cy" value="240.5"/>
     <arg name="fx" value="343.49636753580074"/>
@@ -50,10 +50,6 @@
     <arg name="point0_x" value="22.0" />
     <arg name="point0_y" value="22.0" />
     <arg name="point0_z" value="2.5" />
-
-    <!--<arg name="point0_x" value="12.0" />
-    <arg name="point0_y" value="0.0" />
-    <arg name="point0_z" value="2.0" />-->
 
     <!-- set more waypoints if you need -->
     <arg name="point1_x" value="0.0" />

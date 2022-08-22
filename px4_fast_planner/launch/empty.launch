@@ -14,7 +14,7 @@
     <arg name="R" default="0"/>
     <arg name="P" default="0"/>
     <arg name="Y" default="0"/>
-
+    <!--<arg name="Y" default="3.14"/>-->
 
     <group if="$(arg use_gazebo)" >
 
@@ -31,7 +31,7 @@
         <!-- vehicle model and world -->
         <arg name="est" default="ekf2"/>
         <arg name="vehicle" default="iris_depth_camera"/>
-        <arg name="world" default="$(find px4_fast_planner)/worlds/multi_col.world"/>
+        <arg name="world" default="$(find px4_fast_planner)/worlds/empty.world"/>
         <arg name="sdf" default="$(find px4_fast_planner)/models/$(arg vehicle)/$(arg vehicle).sdf"/>
 
         <!-- PX4 SITL configs -->

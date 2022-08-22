@@ -336,15 +336,13 @@ bool KinoReplanFSM::callKinodynamicReplan() {
       bspline.knots.push_back(knots(i));
     }
 
-    std::cout << "4444. WayPTS : " ;
     Eigen::MatrixXd yaw_pts = info->yaw_traj_.getControlPoint();
     for (int i = 0; i < yaw_pts.rows(); ++i) {
       double yaw = yaw_pts(i, 0);
       bspline.yaw_pts.push_back(yaw);
 
-      std::cout << yaw << ", " ;
     }
-    std::cout << std::endl;
+
     bspline.yaw_dt = info->yaw_traj_.getInterval();
 
     bspline_pub_.publish(bspline);

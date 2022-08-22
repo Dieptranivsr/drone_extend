@@ -113,7 +113,7 @@ bool FastPlannerManager::checkTrajCollision(double& distance) {
 
   double          radius = 0.0;
   Eigen::Vector3d fut_pt;
-  double          fut_t = 0.02;
+  double          fut_t = 0.02
 
   while (radius < 6.0 && t_now + fut_t < local_data_.duration_) {
     fut_pt = local_data_.position_traj_.evaluateDeBoor(tm + t_now + fut_t);
@@ -817,18 +817,18 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
   auto&  pos      = local_data_.position_traj_;
   double duration = pos.getTimeSum();
 
-  double dt_yaw  = 0.3;
+  double dt_yaw  = 0.1;
   int    seg_num = ceil(duration / dt_yaw);
   dt_yaw         = duration / seg_num;
 
-  const double            forward_t = 2.0;
+  const double            forward_t = 5.0;
   double                  last_yaw  = start_yaw(0);
   vector<Eigen::Vector3d> waypts;
   vector<int>             waypt_idx;
 
   // seg_num -> seg_num - 1 points for constraint excluding the boundary states
 
-  std::cout << "1. WayPTS : " ;
+  //std::cout << "1. WayPTS : " ;
 
   for (int i = 0; i < seg_num; ++i) {
     double          tc = i * dt_yaw;
@@ -848,10 +848,10 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
     waypts.push_back(waypt);
     waypt_idx.push_back(i);
 
-    std::cout << waypt(0) << ", " ;
+    //std::cout << waypt(0) << ", " ;
   }
 
-  std::cout << std::endl;
+  //std::cout << std::endl;
 
   // calculate initial control points with boundary state constraints
 
@@ -879,17 +879,17 @@ void FastPlannerManager::planYaw(const Eigen::Vector3d& start_yaw) {
   local_data_.yawdotdot_traj_ = local_data_.yawdot_traj_.getDerivative();
 
   vector<double> path_yaw;
-  std::cout << "2. WayPTS : " ;
+  //std::cout << "2. WayPTS : " ;
   for (int i = 0; i < waypts.size(); ++i) {
     path_yaw.push_back(waypts[i][0]);
-    std::cout << waypts[i][0] << ", " ;
+    //std::cout << waypts[i][0] << ", " ;
   }
-  std::cout << std::endl;
+  //std::cout << std::endl;
   plan_data_.path_yaw_    = path_yaw;
   plan_data_.dt_yaw_      = dt_yaw;
   plan_data_.dt_yaw_path_ = dt_yaw;
 
-  std::cout << "plan heading: " << (ros::Time::now() - t1).toSec() << std::endl;
+  //std::cout << "plan heading: " << (ros::Time::now() - t1).toSec() << std::endl;
 }
 
 void FastPlannerManager::calcNextYaw(const double& last_yaw, double& yaw) {

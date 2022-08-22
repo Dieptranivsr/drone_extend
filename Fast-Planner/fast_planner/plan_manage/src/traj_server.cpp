@@ -146,14 +146,14 @@ void bsplineCallback(plan_manage::BsplineConstPtr msg) {
 
   // parse yaw traj
 
-  std::cout << "1111. WayPTS : " ;
+  //std::cout << "1111. WayPTS : " ;
   Eigen::MatrixXd yaw_pts(msg->yaw_pts.size(), 1);
   for (int i = 0; i < msg->yaw_pts.size(); ++i) {
     yaw_pts(i, 0) = msg->yaw_pts[i];
 
-    std::cout << yaw_pts(i, 0) << ", " ;
+    //std::cout << yaw_pts(i, 0) << ", " ;
   }
-  std::cout << std::endl;
+  //std::cout << std::endl;
 
   NonUniformBspline yaw_traj(yaw_pts, msg->order, msg->yaw_dt);
 
@@ -255,7 +255,7 @@ void cmdCallback(const ros::TimerEvent& e) {
   cmd.acceleration.y = acc(1);
   cmd.acceleration.z = acc(2);
 
-  std::cout << yaw << std::endl;
+  //std::cout << yaw << std::endl;
 
   cmd.yaw = yaw;
   cmd.yaw_dot = yawdot;

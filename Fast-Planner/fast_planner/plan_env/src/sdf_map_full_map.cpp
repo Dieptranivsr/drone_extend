@@ -767,11 +767,11 @@ void SDFMap::clearAndInflateLocalMap() {
 void SDFMap::visCallback(const ros::TimerEvent& /*event*/) {
   publishMap();
   publishMapInflate(false);
-  // publishUpdateRange();
-  // publishESDF();
+  publishUpdateRange();
+  publishESDF();
 
-  // publishUnknown();
-  // publishDepth();
+  //publishUnknown();
+  //publishDepth();
 }
 
 void SDFMap::updateOccupancyCallback(const ros::TimerEvent& /*event*/) {
@@ -953,86 +953,91 @@ void SDFMap::cloudCallback(const sensor_msgs::PointCloud2ConstPtr& img) {
 }
 
 void SDFMap::publishMap() {
-  // pcl::PointXYZ pt;
-  // pcl::PointCloud<pcl::PointXYZ> cloud;
-
-  // Eigen::Vector3i min_cut = md_.local_bound_min_ -
-  //     Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
-  // Eigen::Vector3i max_cut = md_.local_bound_max_ +
-  //     Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
-
-  // boundIndex(min_cut);
-  // boundIndex(max_cut);
-
-  // for (int x = min_cut(0); x <= max_cut(0); ++x)
-  //   for (int y = min_cut(1); y <= max_cut(1); ++y)
-  //     for (int z = min_cut(2); z <= max_cut(2); ++z) {
-
-  //       if (md_.occupancy_buffer_[toAddress(x, y, z)] <= mp_.min_occupancy_log_) continue;
-
-  //       Eigen::Vector3d pos;
-  //       indexToPos(Eigen::Vector3i(x, y, z), pos);
-  //       if (pos(2) > mp_.visualization_truncate_height_) continue;
-
-  //       pt.x = pos(0);
-  //       pt.y = pos(1);
-  //       pt.z = pos(2);
-  //       cloud.points.push_back(pt);
-  //     }
-
-  // cloud.width = cloud.points.size();
-  // cloud.height = 1;
-  // cloud.is_dense = true;
-  // cloud.header.frame_id = mp_.frame_id_;
-
-  // sensor_msgs::PointCloud2 cloud_msg;
-  // pcl::toROSMsg(cloud, cloud_msg);
-  // map_pub_.publish(cloud_msg);
-
-  // ROS_INFO("pub map");
-
   pcl::PointXYZ pt;
   pcl::PointCloud<pcl::PointXYZ> cloud;
 
-  Eigen::Vector3i min_cut = md_.local_bound_min_;
-  Eigen::Vector3i max_cut = md_.local_bound_max_;
-
-  int lmm = mp_.local_map_margin_ / 2;
-  min_cut -= Eigen::Vector3i(lmm, lmm, lmm);
-  max_cut += Eigen::Vector3i(lmm, lmm, lmm);
+  /*
+  Eigen::Vector3i min_cut = md_.local_bound_min_ -
+      Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
+  Eigen::Vector3i max_cut = md_.local_bound_max_ +
+      Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
 
   boundIndex(min_cut);
   boundIndex(max_cut);
+  */
+  Eigen::Vector3i min_cut = Eigen::Vector3i::Zero();
+  Eigen::Vector3i max_cut = mp_.map_voxel_num_ - Eigen::Vector3i::Ones();
 
   for (int x = min_cut(0); x <= max_cut(0); ++x)
     for (int y = min_cut(1); y <= max_cut(1); ++y)
       for (int z = min_cut(2); z <= max_cut(2); ++z) {
-        if (md_.occupancy_buffer_inflate_[toAddress(x, y, z)] == 0) continue;
+
+        if (md_.occupancy_buffer_[toAddress(x, y, z)] <= mp_.min_occupancy_log_) continue;
 
         Eigen::Vector3d pos;
         indexToPos(Eigen::Vector3i(x, y, z), pos);
-        //if (pos(2) > mp_.visualization_truncate_height_) continue;
+        if (pos(2) > mp_.visualization_truncate_height_) continue;
 
         pt.x = pos(0);
         pt.y = pos(1);
         pt.z = pos(2);
-        cloud.push_back(pt);
+        cloud.points.push_back(pt);
       }
 
   cloud.width = cloud.points.size();
   cloud.height = 1;
   cloud.is_dense = true;
   cloud.header.frame_id = mp_.frame_id_;
-  sensor_msgs::PointCloud2 cloud_msg;
 
+  sensor_msgs::PointCloud2 cloud_msg;
   pcl::toROSMsg(cloud, cloud_msg);
   map_pub_.publish(cloud_msg);
+
+  //ROS_INFO("pub map");
+
+  // pcl::PointXYZ pt;
+  // pcl::PointCloud<pcl::PointXYZ> cloud;
+
+  // Eigen::Vector3i min_cut = md_.local_bound_min_;
+  // Eigen::Vector3i max_cut = md_.local_bound_max_;
+
+  // int lmm = mp_.local_map_margin_ / 2;
+  // min_cut -= Eigen::Vector3i(lmm, lmm, lmm);
+  // max_cut += Eigen::Vector3i(lmm, lmm, lmm);
+  
+  // boundIndex(min_cut);
+  // boundIndex(max_cut);
+
+  // for (int x = min_cut(0); x <= max_cut(0); ++x)
+  //   for (int y = min_cut(1); y <= max_cut(1); ++y)
+  //     for (int z = min_cut(2); z <= max_cut(2); ++z) {
+  //       if (md_.occupancy_buffer_inflate_[toAddress(x, y, z)] == 0) continue;
+
+  //       Eigen::Vector3d pos;
+  //       indexToPos(Eigen::Vector3i(x, y, z), pos);
+  //       //if (pos(2) > mp_.visualization_truncate_height_) continue;
+
+  //       pt.x = pos(0);
+  //       pt.y = pos(1);
+  //       pt.z = pos(2);
+  //       cloud.push_back(pt);
+  //     }
+
+  // cloud.width = cloud.points.size();
+  // cloud.height = 1;
+  // cloud.is_dense = true;
+  // cloud.header.frame_id = mp_.frame_id_;
+  // sensor_msgs::PointCloud2 cloud_msg;
+
+  // pcl::toROSMsg(cloud, cloud_msg);
+  // map_pub_.publish(cloud_msg);
 }
 
 void SDFMap::publishMapInflate(bool all_info) {
   pcl::PointXYZ pt;
   pcl::PointCloud<pcl::PointXYZ> cloud;
 
+  /*
   Eigen::Vector3i min_cut = md_.local_bound_min_;
   Eigen::Vector3i max_cut = md_.local_bound_max_;
 
@@ -1044,6 +1049,10 @@ void SDFMap::publishMapInflate(bool all_info) {
 
   boundIndex(min_cut);
   boundIndex(max_cut);
+  */
+
+  Eigen::Vector3i min_cut = Eigen::Vector3i::Zero();
+  Eigen::Vector3i max_cut = mp_.map_voxel_num_ - Eigen::Vector3i::Ones();
 
   for (int x = min_cut(0); x <= max_cut(0); ++x)
     for (int y = min_cut(1); y <= max_cut(1); ++y)
@@ -1176,12 +1185,16 @@ void SDFMap::publishESDF() {
   const double min_dist = 0.0;
   const double max_dist = 3.0;
 
+  /*
   Eigen::Vector3i min_cut = md_.local_bound_min_ -
       Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
   Eigen::Vector3i max_cut = md_.local_bound_max_ +
       Eigen::Vector3i(mp_.local_map_margin_, mp_.local_map_margin_, mp_.local_map_margin_);
   boundIndex(min_cut);
-  boundIndex(max_cut);
+  boundIndex(max_cut);*/
+
+  Eigen::Vector3i min_cut = Eigen::Vector3i::Zero();
+  Eigen::Vector3i max_cut = mp_.map_voxel_num_ - Eigen::Vector3i::Ones();
 
   for (int x = min_cut(0); x <= max_cut(0); ++x)
     for (int y = min_cut(1); y <= max_cut(1); ++y) {

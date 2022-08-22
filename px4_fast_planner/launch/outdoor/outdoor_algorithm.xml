@@ -40,7 +40,7 @@
     <!-- planning fsm -->
     <param name="flight/flight_type" value="$(arg flight_type)" type="int"/>
     <param name="flight/thresh_replan" value="1.0" type="double"/>
-    <param name="flight/thresh_no_replan" value="1.0" type="double"/>
+    <param name="flight/thresh_no_replan" value="0.5" type="double"/>
 
     <param name="flight/waypoint_num" value="$(arg point_num)" type="int"/>
     <param name="flight/waypoint0_x" value="$(arg point0_x)" type="double"/>
@@ -129,7 +129,7 @@
 
   <!-- trajectory optimization -->
     <param name="optimization/lambda1" value="10.0" type="double"/>
-    <param name="optimization/lambda2" value="0.8" type="double"/>
+    <param name="optimization/lambda2" value="0.5" type="double"/>
     <param name="optimization/lambda3" value="0.00001" type="double"/>
     <param name="optimization/lambda4" value="0.01" type="double"/>
     <param name="optimization/lambda7" value="100.0" type="double"/>
