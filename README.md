@@ -10,7 +10,8 @@
   $ rostopic echo /mavros/local_position/pose
   $ roslaunch px4_fast_planner outdoor.launch
   $ rosrun tf view_frames && evince frames.pdf
-  $ rosbag record -o ~/ -a -x "(.*)theora(.*)|(.*)compressed(.*)"
+  $ ./record.sh
+  # FULL $ rosbag record -o ~/ -a -x "(.*)theora(.*)|(.*)compressed(.*)"
   $ rostopic pub --once /move_base_simple/goal geometry_msgs/PoseStamped "header:
   seq: 0
   stamp:
@@ -40,6 +41,7 @@ pose:
 ```
   $ roslaunch px4_fast_planner flm_planner.launch
   $ roslaunch flightros rotors_gazebo.launch
+  $ ./record_flightmare.sh
   $ rostopic pub --once /move_base_simple/goal geometry_msgs/PoseStamped "header:
   seq: 0
   stamp:
