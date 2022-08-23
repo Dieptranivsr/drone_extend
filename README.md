@@ -38,12 +38,8 @@ pose:
 </p>
 
 ```
-  $ roslaunch mavros px4.launch fcu_url:="/dev/ttyTHS1:921600"
-  $ roslaunch realsense2_camera rs_camera.launch enable_color:=false depth_width:=640 depth_height:=480 depth_fps:=15
-  $ rostopic echo /mavros/local_position/pose
-  $ roslaunch px4_fast_planner outdoor.launch
-  $ rosrun tf view_frames && evince frames.pdf
-  $ rosbag record -o ~/ -a -x "(.*)theora(.*)|(.*)compressed(.*)"
+  $ roslaunch px4_fast_planner flm_planner.launch
+  $ roslaunch flightros rotors_gazebo.launch
   $ rostopic pub --once /move_base_simple/goal geometry_msgs/PoseStamped "header:
   seq: 0
   stamp:
